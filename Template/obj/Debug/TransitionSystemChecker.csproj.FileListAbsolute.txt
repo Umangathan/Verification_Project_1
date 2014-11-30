@@ -1,0 +1,17 @@
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\tsc.exe.config
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\tsc.exe
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\tsc.pdb
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Automaton.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Base.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Exploration.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Expressions.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Language.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Modularity.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Serialization.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Teaching.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Graphs.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\MathNet.Numerics.dll
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\bin\Debug\Modest.Teaching.xml
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\obj\Debug\TransitionSystemChecker.csprojResolveAssemblyReference.cache
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\obj\Debug\tsc.exe
+C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Template\obj\Debug\tsc.pdb

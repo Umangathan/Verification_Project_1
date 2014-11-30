@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Modest.Teaching</name>
+    </assembly>
+    <members>
+        <member name="T:Modest.Teaching.Property">
+            <summary>
+            Abstract base class for property expressions.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.Property.Location">
+            <summary>
+            Get the location of this property in the model's source.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.AtomicProposition.PropositionIndex">
+            <summary>
+            Gets the index of the atomic proposition.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.BinaryOperator.LeftOperand">
+            <summary>
+            Gets the left operand.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.BinaryOperator.RightOperand">
+            <summary>
+            Gets the right operand.
+            </summary>
+        </member>
+        <member name="T:Modest.Teaching.ModelProperty">
+            <summary>
+            Represents a property in a model.
+            </summary>
+        </member>
+        <member name="M:Modest.Teaching.ModelProperty.#ctor(System.String,Modest.Teaching.Property,Modest.Modularity.ILocation)">
+            <summary>
+            Initialises a new instance of the <see cref="T:Modest.Teaching.ModelProperty"/> class.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="property">The property expression.</param>
+            <param name="location">The location of the property in the model's source.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="name"/>, <paramref name="property"/> or <paramref name="location"/> is <c>null</c>.</exception>
+        </member>
+        <member name="P:Modest.Teaching.ModelProperty.Name">
+            <summary>
+            Gets the name of the property.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.ModelProperty.Property">
+            <summary>
+            Gets the property expression.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.ModelProperty.Location">
+            <summary>
+            Gets the location of the property in the model's source.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.UnaryOperator.Operand">
+            <summary>
+            Gets the operand.
+            </summary>
+        </member>
+        <member name="M:Modest.Teaching.TransitionSystem`1.GetInitialState(`0@)">
+            <summary>
+            Gets the initial state of the transition system.
+            </summary>
+            <param name="initialState">The computed initial state will be saved in this parameter.</param>
+        </member>
+        <member name="M:Modest.Teaching.TransitionSystem`1.HasAtomicProposition(`0@,System.Int32)">
+            <summary>
+            Determines whether a given state satisfies an atomic proposition.
+            </summary>
+            <param name="state">The state.</param>
+            <param name="atomicPropositionIndex">The index of the atomic proposition to check.</param>
+            <returns><c>true</c> if <paramref name="state"/> satisfies the atomic proposition; otherwise, <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="atomicPropositionIndex"/> is not a valid index for an atomic proposition.</exception>
+        </member>
+        <member name="M:Modest.Teaching.TransitionSystem`1.GetTransitions(`0@)">
+            <summary>
+            Gets the outgoing transitions of a given state.
+            </summary>
+            <param name="state">The state from which the transitions originate.</param>
+            <returns>The transitions originating from <paramref name="state"/>.</returns>
+        </member>
+        <member name="M:Modest.Teaching.TransitionSystem`1.GetTargetState(`0@,Modest.Teaching.TransitionSystem{`0}.Transition,`0@)">
+            <summary>
+            Gets the target state of a given transition.
+            </summary>
+            <param name="state">The state from which the transition originates.</param>
+            <param name="transition">The transition.</param>
+            <param name="targetState">The computed target state will be saved in this parameter.</param>
+        </member>
+        <member name="T:Modest.Teaching.TransitionSystem`1.Transition">
+            <summary>
+            Represents a transition.
+            </summary>
+        </member>
+        <member name="P:Modest.Teaching.TransitionSystem`1.Transition.Label">
+            <summary>
+            Gets the label of the transition.
+            </summary>
+        </member>
+    </members>
+</doc>
