@@ -29,13 +29,14 @@ namespace TransitionSystemChecker
                 Property property = properties[i].Property;
                 String name = properties[i].Name;
                 String prop = property.ToString();
+                String loc = property.Location.ToString();
 
-                text4 = text4 + "Name: " + name + " \n" + prop + " \n";
+                text4 = text4 + "Name: " + name + " \n" + prop + " Location: " + loc +   " \n";
             }
 
             String text = text1 + text2 + text3 + text4 ;
 
-            String nextFileName = getNextFileName();
+            String nextFileName = getNextFileName("property_location");
             System.IO.File.WriteAllText(nextFileName, text);
 
 
@@ -62,24 +63,24 @@ namespace TransitionSystemChecker
                 // Do something maybe
             }
 
-            String nextFileName = getNextFileName();
+            String nextFileName = getNextFileName("test");
             System.IO.File.WriteAllText(nextFileName, text);
 
         }
 
-        public String getNextFileName()
+        public String getNextFileName(String name)
         {
              int fileNameCounter = 0;
 
             System.IO.StreamReader file =
-                new System.IO.StreamReader("C:\\Users\\Umangathan\\Downloads\\Programmierung\\Verification\\Project_1\\Tests\\Test" + fileNameCounter + ".txt");
+                new System.IO.StreamReader("C:\\Users\\Umangathan\\Downloads\\Programmierung\\Verification\\Project_1\\Tests\\" + name + fileNameCounter + ".txt");
 
             try
             {
                 while (file.ReadLine() != null)
                 {
                     fileNameCounter++;
-                    file = new System.IO.StreamReader("C:\\Users\\Umangathan\\Downloads\\Programmierung\\Verification\\Project_1\\Tests\\Test" + fileNameCounter + ".txt");
+                    file = new System.IO.StreamReader("C:\\Users\\Umangathan\\Downloads\\Programmierung\\Verification\\Project_1\\Tests\\" + name + fileNameCounter + ".txt");
                 }
 
                 file.Close();
@@ -89,7 +90,7 @@ namespace TransitionSystemChecker
                 // Do something maybe
             }
 
-            String nextFileName = @"C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Tests\Test" + fileNameCounter + ".txt";
+            String nextFileName = @"C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Tests\" + name + fileNameCounter + ".txt";
 
           return nextFileName;
         }
