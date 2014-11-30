@@ -14,6 +14,10 @@ namespace TransitionSystemChecker.PathFormulas
             this.next = next;
         }
 
+        public override PathFormula existentialNormalForm()
+        {
+            return new PNext(next.existentialNormalForm());
+        } 
 
 
     }

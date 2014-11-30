@@ -16,6 +16,13 @@ namespace TransitionSystemChecker.PathFormulas
             this.right = right;
         }
 
+        public override PathFormula existentialNormalForm()
+        {
+            StateFormula e_left = left.existentialNormalForm();
+            StateFormula e_right = right.existentialNormalForm();
+
+            return new PUntil(e_left, e_right);
+        }
 
 
     }

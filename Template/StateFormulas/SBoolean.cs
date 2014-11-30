@@ -13,5 +13,10 @@ namespace TransitionSystemChecker.StateFormulas
         {
             this.b = b;
         }
+
+        public override StateFormula existentialNormalForm()
+        {
+            return new SBoolean(b);
+        }
     }
 }

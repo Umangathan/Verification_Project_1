@@ -10,7 +10,9 @@ namespace TransitionSystemChecker
 {
     abstract class StateFormula
     {
+        
 
+        abstract public StateFormula existentialNormalForm();
         
        
     }

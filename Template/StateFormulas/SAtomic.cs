@@ -16,5 +16,10 @@ namespace TransitionSystemChecker.StateFormulas
         {
             this.atomic = atomic;
         }
+
+        public override StateFormula existentialNormalForm()
+        {
+            return new SAtomic(atomic);
+        }
     }
 }

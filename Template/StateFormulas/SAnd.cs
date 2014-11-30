@@ -16,6 +16,14 @@ namespace TransitionSystemChecker.StateFormulas
             this.right = right;
         }
 
+        public override StateFormula existentialNormalForm()
+        {
+           StateFormula e_left = left.existentialNormalForm();
+           StateFormula e_right = right.existentialNormalForm();
+
+           return new SAnd(e_left, e_right);
+        }
+
 
     }
 }

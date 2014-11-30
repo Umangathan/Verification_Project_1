@@ -7,11 +7,17 @@ namespace TransitionSystemChecker.StateFormulas
 {
     class SNot : StateFormula
     {
-        public StateFormula path;
+        public StateFormula state;
 
-        public SNot(StateFormula path)
+        public SNot(StateFormula state)
         {
-            this.path = path;
+            this.state = state;
+        }
+
+        public override StateFormula existentialNormalForm()
+        {
+            StateFormula e_state = state.existentialNormalForm();
+            return new SNot(e_state);
         }
 
     }

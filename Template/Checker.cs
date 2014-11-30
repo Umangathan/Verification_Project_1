@@ -101,6 +101,15 @@ namespace TransitionSystemChecker
                 }
             }
 
+            //Transform into ENF
+
+            var state_ENF = new Dictionary<String, StateFormula>();
+            foreach (var key_formula in state_formulas)
+            {
+
+                 state_ENF.Add(key_formula.Key, key_formula.Value.existentialNormalForm());
+            }
+
 
             //  Environment.Exit(0);
 

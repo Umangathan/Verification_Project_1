@@ -14,6 +14,10 @@ namespace TransitionSystemChecker.PathFormulas
             this.globally = globally;
         }
 
+        public override PathFormula existentialNormalForm()
+        {
+            return new PGlobally(globally.existentialNormalForm());
+        }
 
 
     }
