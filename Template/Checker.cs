@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Modest.Teaching;
 using TransitionSystemChecker.StateFormulas;
-using TransitionSystemChecker.PathFormulas;
 using CI = System.Globalization.CultureInfo;
 
 namespace TransitionSystemChecker
@@ -165,6 +164,7 @@ namespace TransitionSystemChecker
         {
             StateFormula state1, state2;
             Property property1, property2;
+            int temp;
 
 
             if (property.GetType() == typeof(True))
@@ -211,15 +211,129 @@ namespace TransitionSystemChecker
 
             }
             else if (property.GetType() == typeof(Exists))
-            { 
+            {
+                property1 = ((Exists)property).Operand;
+                parseTemporalOperator(property1, out state1, out state2, ref is_ctl, out temp);
+
+                switch (temp)
+                {
+                    case 0:
+                        result = new SENext(state1);
+                        break;
+                    case 1:
+                        result = new SEUntil(state1, state2);
+                        break;
+                    case 2:
+                        result = new SEFinally(state1);
+                        break;
+                    case 3:
+                        result = new SEAlways(state1);
+                        break;
+                    case 4:
+                        result = new SEWeakUntil(state1, state2);
+                        break;
+                    default:
+                        result = new SError();
+                        is_ctl = false;
+                        break;        
+                }
 
             }
             else if (property.GetType() == typeof(ForAll))
-            { 
+            {
+                property1 = ((ForAll)property).Operand;
+                parseTemporalOperator(property1, out state1, out state2, ref is_ctl, out temp);
 
+                switch (temp)
+                {
+                    case 0:
+                        result = new SANext(state1);
+                        break;
+                    case 1:
+                        result = new SAUntil(state1, state2);
+                        break;
+                    case 2:
+                        result = new SAFinally(state1);
+                        break;
+                    case 3:
+                        result = new SAAlways(state1);
+                        break;
+                    case 4:
+                        result = new SAWeakUntil(state1, state2);
+                        break;
+                    default:
+                        result = new SError();
+                        is_ctl = false;
+                        break;
+                }
+
+            } 
+            else {
+                is_ctl = false;
+                result = new SError();
             }
 
-            result = new SError();
+            
+        }
+
+        public void parseTemporalOperator(Property property, out StateFormula state1, out StateFormula state2, ref bool is_ctl, out int temp) {
+
+            Property property1, property2;
+
+            if (property.GetType() == typeof(Next))
+            {
+                property1 = ((Next)property).Operand;
+                
+                parseStateFormula(property1, out state1, ref is_ctl);
+                state2 = new SError();
+                temp = 0;
+
+            }
+            else if (property.GetType() == typeof(Until))
+            {
+                property1 = ((Until) property).LeftOperand;
+                property2 = ((Until)property).RightOperand;
+
+                parseStateFormula(property1, out state1, ref is_ctl);
+                parseStateFormula(property2, out state2, ref is_ctl);
+    
+                temp = 1;
+            }
+            else if (property.GetType() == typeof(Eventually)) 
+            {
+                property1 = ((Eventually)property).Operand;
+
+                parseStateFormula(property1, out state1, ref is_ctl);
+                state2 = new SError();
+                temp = 2;
+            }
+            else if (property.GetType() == typeof(Always))
+            {
+                property1 = ((Always)property).Operand;
+
+                parseStateFormula(property1, out state1, ref is_ctl);
+                state2 = new SError();
+                temp = 3;
+            }
+            else if (property.GetType() == typeof(WeakUntil))
+            {
+                property1 = ((WeakUntil)property).LeftOperand;
+                property2 = ((WeakUntil)property).RightOperand;
+
+                parseStateFormula(property1, out state1, ref is_ctl);
+                parseStateFormula(property2, out state2, ref is_ctl);
+
+                temp = 4;
+            }
+            else 
+            {
+                state1 = new SError();
+                state2 = new SError();
+
+                temp = -1;
+                is_ctl = false;
+            }
+            
         }
 
         /*

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TransitionSystemChecker.StateFormulas.ForAll
+namespace TransitionSystemChecker.StateFormulas
 {
     class SAWeakUntil : StateFormula
     {
