@@ -21,5 +21,33 @@ namespace TransitionSystemChecker.StateFormulas
             return new SENext(e_operand);
         }
 
+        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        {
+            HashSet<T> operand_sat;
+            operand.isSatiesfied<T>(transition_system, states, out operand_sat);
+            HashSet<T> res = new HashSet<T>();
+
+            foreach (var entry in states)
+            {
+                HashSet<T> post = new HashSet<T>();
+                var state = entry;
+                T successor;
+                foreach (var transition in transition_system.GetTransitions(ref state))
+                {
+                    transition_system.GetTargetState(ref state, transition, out successor);
+                    post.Add(successor);
+                }
+
+                post.IntersectWith(operand_sat);
+
+                if (post.Count > 0)
+                    res.Add(entry);
+
+            }
+
+            sat = res;
+
+        }
+
     }
 }

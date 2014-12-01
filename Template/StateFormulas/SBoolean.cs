@@ -18,5 +18,25 @@ namespace TransitionSystemChecker.StateFormulas
         {
             return new SBoolean(b);
         }
+
+
+        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        {
+            if (b)
+            {
+                var res = new HashSet<T>();
+                foreach (var entry in states)
+                    res.Add(entry);
+                sat = res;
+            }
+            else
+            {
+                sat = new HashSet<T>();
+            }
+        }
+
+
+
+       
     }
 }

@@ -10,6 +10,7 @@ namespace TransitionSystemChecker
 {
     class Checker : ITransitionSystemAnalyzer
     {
+
         public Checker() // called from Program.cs
         {
             // Perform initialisation work that does not depend on command-line arguments and that cannot fail here if necessary.
@@ -81,7 +82,7 @@ namespace TransitionSystemChecker
 
             foreach (var model_property in properties)
             {
-                Property property = model_property.Property;
+                Property property = model_property.Property; 
                 String name = model_property.Name;
                 StateFormula complete_formula = new SError();
                 bool is_ctl = true;
@@ -111,7 +112,35 @@ namespace TransitionSystemChecker
             }
 
 
-            //  Environment.Exit(0);
+            // Now do the model checking
+            foreach (var entry in state_ENF)
+            {
+                String name = entry.Key;
+                StateFormula state_formula = entry.Value;
+
+                bool isSatisfied;
+                LinkedList<T> linked_states = new LinkedList<T>();
+                foreach (var entry_state in states)
+                    linked_states.AddLast(entry_state);
+
+                ModelChecker<T>(transitionSystem, linked_states, state_formula, out isSatisfied);
+
+                if (isSatisfied)
+                {
+                    Console.WriteLine(name + ": true \n");
+                }
+                else
+                {
+                    Console.WriteLine(name + ": false \n");
+                }
+
+                
+
+
+            }
+
+
+             // Environment.Exit(0);
 
         }
 
@@ -336,139 +365,25 @@ namespace TransitionSystemChecker
             
         }
 
-        /*
-
-        public void parseStateFormula(Property property, String name, ref StateFormula state_formula, ref bool is_ctl)
+        public void ModelChecker<T>(TransitionSystem<T> transition_system, LinkedList<T> states, StateFormula state_formula, out bool isSatiesfied)
+            where T : struct, Modest.Exploration.IState<T>
         {
-            StateFormula left_state = new SError();
-            StateFormula right_state = new SError();
+            HashSet<T> sat;
+            state_formula.isSatiesfied<T>(transition_system, states, out sat);
 
-            if (property.GetType() == typeof(True))
-            {   
-                state_formula = new SBoolean(true);
-            }
-            else if (property.GetType() == typeof(False))
+            T initialState;
+            transition_system.GetInitialState(out initialState);
+
+            if (sat.Contains(initialState))
             {
-                state_formula = new SBoolean(false);
-            }
-            else if (property.GetType() == typeof(AtomicProposition))
-            {
-                
-                state_formula = new SAtomic((AtomicProposition)property);
-            }
-            else if (property.GetType() == typeof(And))
-            {
-                Property left = ((And)property).LeftOperand;
-                Property right = ((And)property).RightOperand;
-
-
-                parseStateFormula(left, name, ref left_state, ref is_ctl);
-                parseStateFormula(right, name, ref right_state, ref is_ctl);
-
-                state_formula = new SAnd(left_state, right_state);
-
-            }
-            else if (property.GetType() == typeof(Or))
-            {
-                Property left = ((And)property).LeftOperand;
-                Property right = ((And)property).RightOperand;
-
-                parseStateFormula(left, name, ref left_state, ref is_ctl);
-                parseStateFormula(right, name, ref right_state, ref is_ctl);
-
-                state_formula = new SOr(left_state, right_state);
-            }
-            else if (property.GetType() == typeof(Not))
-            {
-                Property operand = ((Not)property).Operand;
-
-                StateFormula not_state = new SError();
-                parseStateFormula(operand, name, ref not_state, ref is_ctl);
-
-                state_formula = new SNot(not_state);
-            }
-            else if (property.GetType() == typeof(Exists))
-            {
-                Property operand = ((Exists)property).Operand;
-
-                PathFormula path_operand = new PError();
-                parsePathFormula(operand, name, ref path_operand, ref is_ctl);
-
-                state_formula = new SExists(path_operand);
-            }
-            else if (property.GetType() == typeof(ForAll))
-            {
-                
-                Property operand = ((ForAll)property).Operand;
-
-                PathFormula path_operand = new PError();
-                parsePathFormula(operand, name, ref path_operand, ref is_ctl);
-
-                state_formula = new SForAll(path_operand);
-
+                isSatiesfied = true;
             }
             else
             {
-                is_ctl = false;
+                isSatiesfied = false;
             }
-
-            
-
-
         }
 
-        public void parsePathFormula(Property property, String name, ref PathFormula path_formula, ref bool is_ctl)
-        {
-            StateFormula operand_state = new SError();
-            StateFormula left_state = new SError();
-            StateFormula right_state = new SError();
-            if (property.GetType() == typeof(Next))
-            {
-                Property operand = ((Next)property).Operand;
-                parseStateFormula(operand, name, ref operand_state, ref is_ctl);
-                path_formula = new PNext(operand_state);
-            }
-            else if (property.GetType() == typeof(Until))
-            {
-                Property left = ((Until)property).LeftOperand;
-                Property right = ((Until)property).RightOperand;
 
-                parseStateFormula(left, name, ref left_state, ref is_ctl);
-                parseStateFormula(right, name, ref right_state, ref is_ctl);
-
-                path_formula = new PUntil(left_state, right_state);
-
-            }
-            else if (property.GetType() == typeof(Until))
-            {
-                Property operand = ((Next)property).Operand;
-                parseStateFormula(operand, name, ref operand_state, ref is_ctl);
-                path_formula = new PEventually(operand_state);
-            }
-            else if (property.GetType() == typeof(Always))
-            {
-                Property operand = ((Always)property).Operand;
-                parseStateFormula(operand, name, ref operand_state, ref is_ctl);
-                path_formula = new PGlobally(operand_state);
-            }
-            else if (property.GetType() == typeof(WeakUntil))
-            {
-                Property left = ((WeakUntil)property).LeftOperand;
-                Property right = ((WeakUntil)property).RightOperand;
-
-                parseStateFormula(left, name, ref left_state, ref is_ctl);
-                parseStateFormula(right, name, ref right_state, ref is_ctl);
-
-                path_formula = new PWeakUntil(left_state, right_state);
-            } else
-            {
-                is_ctl = false;
-
-            }
-
-
-
-        }
-          */
     }
 }

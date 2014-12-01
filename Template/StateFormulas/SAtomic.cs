@@ -21,5 +21,22 @@ namespace TransitionSystemChecker.StateFormulas
         {
             return new SAtomic(atomic);
         }
+
+        public override void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        {
+            HashSet<T> res = new HashSet<T>();
+
+            foreach (var entry in states)
+            {
+                T state = entry;
+                bool satisfied = transition_system.HasAtomicProposition(ref state, atomic.PropositionIndex);
+
+                if(satisfied)
+                    res.Add(state);
+
+            }
+
+            sat = res;
+        }
     }
 }

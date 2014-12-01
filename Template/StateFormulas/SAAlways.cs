@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Modest.Teaching;
+
 namespace TransitionSystemChecker.StateFormulas
 {
     class SAAlways : StateFormula
@@ -25,7 +27,12 @@ namespace TransitionSystemChecker.StateFormulas
             return new SNot(exists_finally);
 
             
-        }  
+        }
+
+        public override void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        {
+            sat = new HashSet<T>();
+        }
 
     }
 }
