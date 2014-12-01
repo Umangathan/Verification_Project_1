@@ -163,6 +163,62 @@ namespace TransitionSystemChecker
 
         public void parseStateFormula(Property property, out StateFormula result, ref bool is_ctl)
         {
+            StateFormula state1, state2;
+            Property property1, property2;
+
+
+            if (property.GetType() == typeof(True))
+            {
+                result = new SBoolean(true);
+            }
+            else if (property.GetType() == typeof(False))
+            {
+                result = new SBoolean(false);
+            }
+            else if (property.GetType() == typeof(AtomicProposition))
+            {
+
+                result = new SAtomic((AtomicProposition)property);
+            }
+            else if (property.GetType() == typeof(And))
+            {
+                property1 = ((And)property).LeftOperand;
+                property2 = ((And)property).RightOperand;
+
+                parseStateFormula(property1, out state1, ref is_ctl);
+                parseStateFormula(property2, out state2, ref is_ctl);
+
+                result = new SAnd(state1, state2);
+            }
+            else if (property.GetType() == typeof(Or))
+            {
+                property1 = ((Or)property).LeftOperand;
+                property2 = ((Or)property).RightOperand;
+
+                parseStateFormula(property1, out state1, ref is_ctl);
+                parseStateFormula(property2, out state2, ref is_ctl);
+
+                result = new SOr(state1, state2);
+
+            }
+            else if (property.GetType() == typeof(Not))
+            {
+                property1 = ((Not)property).Operand;
+
+                parseStateFormula(property1, out state1, ref is_ctl);
+
+                result = new SNot(state1);
+
+            }
+            else if (property.GetType() == typeof(Exists))
+            { 
+
+            }
+            else if (property.GetType() == typeof(ForAll))
+            { 
+
+            }
+
             result = new SError();
         }
 
