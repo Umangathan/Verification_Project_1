@@ -25,8 +25,10 @@ namespace TransitionSystemChecker.PathFormulas
             StateFormula e_right = right.existentialNormalForm();
 
 
-            StateFormula left = new SNot(left);
-            StateFormula right = new SAnd(new SNot(left.existentialNormalForm()), new SNot(right.existentialNormalForm()));
+            StateFormula s_left = new SNot(e_left);
+            StateFormula s_right = new SAnd(new SNot(e_left.existentialNormalForm()), new SNot(e_right.existentialNormalForm()));
+
+            return new PError();
         }
 
     }

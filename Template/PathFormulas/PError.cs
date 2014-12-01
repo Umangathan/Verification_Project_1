@@ -12,5 +12,10 @@ namespace TransitionSystemChecker.PathFormulas
 
         }
 
+        public override PathFormula existentialNormalForm()
+        {
+            return new PError();
+        }
+
     }
 }

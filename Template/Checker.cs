@@ -59,9 +59,10 @@ namespace TransitionSystemChecker
 
             //Console.WriteLine("State: " + initialState.ToString() + "Transition Count: " + transitionSystem.GetTransitions(ref initialState).Count().ToString());
             // Count states and find terminal states
-            var states = new List<T>();
+            var states = new HashSet<T>();
             var newStates = new Queue<T>();
             newStates.Enqueue(initialState);
+            states.Add(initialState);
 
             //while(newStates.Count > 0)
             traverseTree<T>(transitionSystem, ref states, ref newStates, ref initialState, ref terminalStatesEncountered);
@@ -115,7 +116,7 @@ namespace TransitionSystemChecker
 
         }
 
-        public void traverseTree<T>(TransitionSystem<T> transitionSystem, ref List<T> oldStates, ref Queue<T> newStates, ref T state_a, ref bool terminalStatesEncountered)
+        public void traverseTree<T>(TransitionSystem<T> transitionSystem, ref HashSet<T> already_expanded, ref Queue<T> newStates, ref T state_a, ref bool terminalStatesEncountered)
             where T : struct, Modest.Exploration.IState<T>
         {
 
@@ -128,20 +129,21 @@ namespace TransitionSystemChecker
             while (newSize > 0)
             {
                 //Console.WriteLine(newSize);
+                //Console.WriteLine(newSize);
                 int count = 0;
                 var state = newStates.Dequeue();
 
                 //if (!(oldStates.Contains(state)))
-                oldStates.Add(state);
+                //already_expanded.Add(state);
                 T successor;
 
                 foreach (var transition in transitionSystem.GetTransitions(ref state))
                 {
                     transitionSystem.GetTargetState(ref state, transition, out successor);
-                    if (!(oldStates.Contains(successor)))
+
+                    if (already_expanded.Add(successor))
                     {
-                        if (!(oldStates.Contains(successor)) && !(newStates.Contains(successor)))
-                            newStates.Enqueue(successor);
+                        newStates.Enqueue(successor);
                         //newestStates.Add(successor);
                     }
 
