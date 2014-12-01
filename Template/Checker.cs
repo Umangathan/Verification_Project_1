@@ -88,7 +88,7 @@ namespace TransitionSystemChecker
                 bool is_ctl = true;
 
 
-                parseStateFormula(property, name, ref complete_formula, ref is_ctl);
+                parseStateFormula(property, out complete_formula, ref is_ctl);
 
 
                 if (!is_ctl)
@@ -158,22 +158,15 @@ namespace TransitionSystemChecker
             }
 
 
-
-            /*
-            newStates.Clear();
-            foreach (var state in newestStates)
-            {
-                if(newStates.Contains(state))
-                    continue;
-                newStates.Add(state);
-            }
-            */
-
-
-
         }
 
 
+        public void parseStateFormula(Property property, out StateFormula result, ref bool is_ctl)
+        {
+            result = new SError();
+        }
+
+        /*
 
         public void parseStateFormula(Property property, String name, ref StateFormula state_formula, ref bool is_ctl)
         {
@@ -306,5 +299,6 @@ namespace TransitionSystemChecker
 
 
         }
+          */
     }
 }
