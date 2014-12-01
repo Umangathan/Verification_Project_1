@@ -70,22 +70,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checker.cs" />
-    <Compile Include="PathFormula.cs" />
-    <Compile Include="PathFormulas\PError.cs" />
-    <Compile Include="PathFormulas\PEventually.cs" />
-    <Compile Include="PathFormulas\PGlobally.cs" />
-    <Compile Include="PathFormulas\PNext.cs" />
-    <Compile Include="PathFormulas\PUntil.cs" />
-    <Compile Include="PathFormulas\PWeakUntil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="StateFormula.cs" />
+    <Compile Include="StateFormulas\SAAlways.cs" />
+    <Compile Include="StateFormulas\SAFinally.cs" />
     <Compile Include="StateFormulas\SAnd.cs" />
+    <Compile Include="StateFormulas\SANext.cs" />
     <Compile Include="StateFormulas\SAtomic.cs" />
+    <Compile Include="StateFormulas\SAUntil.cs" />
+    <Compile Include="StateFormulas\SAWeakUntil.cs" />
     <Compile Include="StateFormulas\SBoolean.cs" />
+    <Compile Include="StateFormulas\SEAlways.cs" />
+    <Compile Include="StateFormulas\SEFinally.cs" />
+    <Compile Include="StateFormulas\SENext.cs" />
     <Compile Include="StateFormulas\SError.cs" />
-    <Compile Include="StateFormulas\SExists.cs" />
-    <Compile Include="StateFormulas\SForAll.cs" />
+    <Compile Include="StateFormulas\SEUntil.cs" />
+    <Compile Include="StateFormulas\SEWeakUntil.cs" />
     <Compile Include="StateFormulas\SNot.cs" />
     <Compile Include="StateFormulas\SOr.cs" />
     <Compile Include="TestAnalyzer.cs" />
