@@ -14,6 +14,11 @@ namespace TransitionSystemChecker.StateFormulas
             this.b = b;
         }
 
+        public override string ToString()
+        {
+            return b.ToString();
+        }
+
         public override StateFormula existentialNormalForm()
         {
             return new SBoolean(b);

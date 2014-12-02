@@ -14,6 +14,13 @@ namespace TransitionSystemChecker.StateFormulas
             this.state = state;
         }
 
+        public override string ToString()
+        {
+            String s = state.ToString();
+
+            return "!" + s ; 
+        }
+
         public override StateFormula existentialNormalForm()
         {
             StateFormula e_state = state.existentialNormalForm();
@@ -27,6 +34,7 @@ namespace TransitionSystemChecker.StateFormulas
 
             HashSet<T> res = new HashSet<T>();
 
+            /*
             foreach (var entry in states)
             {
                 if (positive_sat.Contains(entry))
@@ -34,6 +42,12 @@ namespace TransitionSystemChecker.StateFormulas
 
                 res.Add(entry);
             }
+            */
+
+            foreach (var entry in states)
+                res.Add(entry);
+
+            res.ExceptWith(positive_sat);
 
             sat = res;
 

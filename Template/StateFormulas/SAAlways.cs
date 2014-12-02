@@ -16,15 +16,24 @@ namespace TransitionSystemChecker.StateFormulas
             this.operand = operand;
         }
 
+        public override string ToString()
+        {
+            String op = operand.ToString();
+
+            return "A[] ( " + op + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
-            // AG phi = NOT EF (NOT phi)
+            // AG phi = NOT EF (NOT phi) = NOT E (true U (NOT phi))
             StateFormula e_operand = operand.existentialNormalForm();
 
             StateFormula not_phi = new SNot(e_operand);
-            StateFormula exists_finally = new SEFinally(not_phi);
+            StateFormula true_state = new SBoolean(true);
+            StateFormula exists_until = new SEUntil(true_state, not_phi);
+            
 
-            return new SNot(exists_finally);
+            return new SNot(exists_until);
 
             
         }

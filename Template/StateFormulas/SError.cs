@@ -14,6 +14,11 @@ namespace TransitionSystemChecker.StateFormulas
 
         }
 
+        public override string ToString()
+        {
+            return "(SError)";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             return new SError();

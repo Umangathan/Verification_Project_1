@@ -18,6 +18,14 @@ namespace TransitionSystemChecker.StateFormulas
             this.right = right;
         }
 
+        public override string ToString()
+        {
+            String l = left.ToString();
+            String r = right.ToString();
+
+            return "A ( " + "( " + l + " )" + " U " + "( " + r + " )" + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             // A(p U w) = NOT E(NOT w U (NOT p AND NOT w)) AND NOT EG NOT w

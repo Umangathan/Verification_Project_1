@@ -14,6 +14,13 @@ namespace TransitionSystemChecker.StateFormulas
             this.operand = operand;
         }
 
+        public override string ToString()
+        {
+            String op = operand.ToString();
+
+            return "E O( " + op + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             StateFormula e_operand = operand.existentialNormalForm();

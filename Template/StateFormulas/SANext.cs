@@ -16,6 +16,13 @@ namespace TransitionSystemChecker.StateFormulas
             this.operand = operand;
         }
 
+        public override string ToString()
+        {
+            String op = operand.ToString();
+
+            return "A O( " + op + " )" ;
+        }
+
         public override StateFormula existentialNormalForm()
         {
             // AX phi = NOT E (X NOT phi)

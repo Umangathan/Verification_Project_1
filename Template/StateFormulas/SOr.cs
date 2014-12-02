@@ -18,6 +18,14 @@ namespace TransitionSystemChecker.StateFormulas
             this.right = right;
         }
 
+        public override string ToString()
+        {
+            String l = left.ToString();
+            String r = right.ToString();
+
+            return "( " + l + " )" + " || " + "( " + r + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             StateFormula e_left = left.existentialNormalForm();

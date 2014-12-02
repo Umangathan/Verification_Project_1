@@ -16,6 +16,14 @@ namespace TransitionSystemChecker.StateFormulas
             this.right = right;
         }
 
+        public override string ToString()
+        {
+            String l = left.ToString();
+            String r = right.ToString();
+
+            return "E ( " + "( " + l + " )" + " U " + "( " + r + " )" + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             StateFormula e_left = left.existentialNormalForm();
@@ -49,21 +57,18 @@ namespace TransitionSystemChecker.StateFormulas
 
             while (e_queue_size > 0)
             {
-                var entry = e_queue.Dequeue();
-                HashSet<T> pre = StateFormula.getPreSet<T>(transition_system, ref states, ref entry);
-                HashSet<T> left_without_t = new HashSet<T>();
+                var s_prime = e_queue.Dequeue();
+                HashSet<T> pre = StateFormula.getPreSet<T>(transition_system, ref states, ref s_prime);
+                left_sat.ExceptWith(t);
 
-                foreach (var left_entry in left_sat)
-                    left_without_t.Add(left_entry);
-
-                left_without_t.ExceptWith(t);
-
-                if(left_without_t.Contains(entry)) 
+                foreach (var s in pre)
                 {
-                    t.Add(entry);
-                    e_queue.Enqueue(entry);
+                    if (left_sat.Contains(s))
+                    {
+                        t.Add(s);
+                        e_queue.Enqueue(s);
+                    }
                 }
-
                 e_queue_size = e_queue.Count;
                 
             }

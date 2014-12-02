@@ -98,6 +98,7 @@ namespace TransitionSystemChecker
                 else
                 {
                     state_formulas.Add(name, complete_formula);
+                    //Console.WriteLine("Name: " + name + " \n Formula: " + complete_formula.ToString());
 
                 }
             }
@@ -107,10 +108,15 @@ namespace TransitionSystemChecker
             var state_ENF = new Dictionary<String, StateFormula>();
             foreach (var key_formula in state_formulas)
             {
+                String name = key_formula.Key;
+                StateFormula enf_formula = key_formula.Value.existentialNormalForm();
 
-                 state_ENF.Add(key_formula.Key, key_formula.Value.existentialNormalForm());
+
+                 state_ENF.Add(key_formula.Key, enf_formula);
+                 //Console.WriteLine("Name: " + key_formula.Key + " \n Formula: " + enf_formula.ToString());
             }
 
+            Console.WriteLine("gogogogo");
 
             // Now do the model checking
             foreach (var entry in state_ENF)
@@ -122,6 +128,8 @@ namespace TransitionSystemChecker
                 LinkedList<T> linked_states = new LinkedList<T>();
                 foreach (var entry_state in states)
                     linked_states.AddLast(entry_state);
+
+
 
                 ModelChecker<T>(transitionSystem, linked_states, state_formula, out isSatisfied);
 
@@ -140,7 +148,7 @@ namespace TransitionSystemChecker
             }
 
 
-             // Environment.Exit(0);
+              //Environment.Exit(0);
 
         }
 

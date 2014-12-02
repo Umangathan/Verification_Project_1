@@ -16,6 +16,13 @@ namespace TransitionSystemChecker.StateFormulas
             this.operand = operand;
         }
 
+        public override string ToString()
+        {
+            String op = operand.ToString();
+
+            return "E <> ( " + op + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             //EF phi = E (true U phi)

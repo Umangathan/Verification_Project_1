@@ -18,6 +18,14 @@ namespace TransitionSystemChecker.StateFormulas
             this.right = right;
         }
 
+        public override string ToString()
+        {
+            String l = left.ToString();
+            String r = right.ToString();
+
+            return "A ( " + "( " + l + " )" + " W " + "( " + r + " )" + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             // E(p W w) = NE((Nw) U (Np AND Nw))

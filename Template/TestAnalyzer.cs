@@ -73,14 +73,14 @@ namespace TransitionSystemChecker
              int fileNameCounter = 0;
 
             System.IO.StreamReader file =
-                new System.IO.StreamReader("C:\\Users\\Umangathan\\Downloads\\Programmierung\\Verification\\Project_1\\Tests\\" + name + fileNameCounter + ".txt");
+                new System.IO.StreamReader("C:\\Users\\Umang\\Downloads\\Verification\\Tests\\" + name + fileNameCounter + ".txt");
 
             try
             {
                 while (file.ReadLine() != null)
                 {
                     fileNameCounter++;
-                    file = new System.IO.StreamReader("C:\\Users\\Umangathan\\Downloads\\Programmierung\\Verification\\Project_1\\Tests\\" + name + fileNameCounter + ".txt");
+                    file = new System.IO.StreamReader("C:\\Users\\Umang\\Verification\\Tests\\" + name + fileNameCounter + ".txt");
                 }
 
                 file.Close();
@@ -90,7 +90,7 @@ namespace TransitionSystemChecker
                 // Do something maybe
             }
 
-            String nextFileName = @"C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Tests\" + name + fileNameCounter + ".txt";
+            String nextFileName = @"C:\Users\Umang\Downloads\Verification\Tests\" + name + fileNameCounter + ".txt";
 
           return nextFileName;
         }

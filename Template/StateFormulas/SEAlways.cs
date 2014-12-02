@@ -14,6 +14,13 @@ namespace TransitionSystemChecker.StateFormulas
             this.operand = operand;
         }
 
+        public override string ToString()
+        {
+            String op = operand.ToString();
+
+            return "E[] ( " + op + " )";
+        }
+
         public override StateFormula existentialNormalForm()
         {
             StateFormula e_operand = operand.existentialNormalForm();
@@ -27,6 +34,11 @@ namespace TransitionSystemChecker.StateFormulas
             operand.isSatiesfied<T>(transition_system, states, out v);                  
             HashSet<T> e = new HashSet<T>();                                                    //S\V
 
+            foreach (var entry in states)
+                e.Add(entry);
+
+            e.ExceptWith(v);
+
             Queue<T> e_queue = new Queue<T>();
 
             foreach (var entry in e)
@@ -34,10 +46,6 @@ namespace TransitionSystemChecker.StateFormulas
 
             Dictionary<T, int> state_c = new Dictionary<T, int>();
 
-            foreach (var entry in states)
-                e.Add(entry);
-
-            e.ExceptWith(v);
 
 
             // Initialize c[s] for every state in Sat(operand)
@@ -54,10 +62,10 @@ namespace TransitionSystemChecker.StateFormulas
 
             while (e_queue_size > 0)
             {
-                var entry = e_queue.Dequeue();
-                HashSet<T> pre_entry = StateFormula.getPreSet<T>(transition_system, ref states, ref entry);
+                var s_prime = e_queue.Dequeue();
+                HashSet<T> pre_s_prime = StateFormula.getPreSet<T>(transition_system, ref states, ref s_prime);
 
-                foreach (var s in pre_entry)
+                foreach (var s in pre_s_prime)
                 {
                     if (v.Contains(s))
                     {
