@@ -33,7 +33,7 @@ namespace TransitionSystemChecker.StateFormulas
             return new SNot(exists_always);
         }
 
-        public override void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        public override void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
             sat = new HashSet<T>();
         }

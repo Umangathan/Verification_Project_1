@@ -1,0 +1,36 @@
+action a, b, c; 
+int i = 0; 
+ 
+property P_EN_True = E N(i == 6); 
+property P_EN_False = E N(i == 5); 
+property P_AN_True = A N(i == 1 || i == 6); 
+property P_AN_False = A N(i == 6); 
+ 
+property P_EU_True = E(i == 0 U i == 6); 
+property P_EU_False = E(i <= 5 U i == 7); 
+property P_AU_True = A(i <= 4 U i >= 5); 
+property P_AU_False = A(i == 0 U i == 6); 
+ 
+property P_EF_True = E<>(i == 5); 
+property P_EF_False = E<>(i == 7); 
+property P_AF_True = A<>(i >= 5); 
+property P_AF_False = A<>(i == 5); 
+ 
+property P_EG_True = E[](i == 0 || i == 6); 
+property P_EG_False = E[](i <= 4); 
+property P_AG_True = A[](i <= 6); 
+property P_AG_False = A[](i <= 5); 
+ 
+property P_EW_True_1 = E(i != 6 W i == 7); 
+property P_EW_True_2 = E(i == 0 W i == 6); 
+property P_EW_False_1 = E(i <= 4 W i == 7); 
+property P_EW_False_2 = E(i <= 3 W i == 5); 
+property P_AW_True = A(i != 6 W i == 6); 
+property P_AW_False = A(i != 6 W i == 5); 
+ 
+do { 
+:: when(i < 5) {= i++ =} 
+:: when(i == 5) {= i = 0 =} 
+:: when(i == 0) {= i = 6 =} 
+:: when(i == 6) tau 
+} 

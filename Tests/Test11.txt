@@ -1,0 +1,12 @@
+int i = 5046; 
+ 
+property P01 = E<>(i == 0 && E N(i == 0)); 
+property P02 = E<>(i == 0 && E N(true)); 
+property P03 = E<>(i == 0 && A[](i == 0)); 
+property P04 = E<>(i == 0 && E[](i == 0)); 
+property P05 = E<>(i == 0 && E<>(i != 0)); 
+ 
+do { 
+:: when(i > 0) {= i-- =} 
+:: when(i == 0) tau 
+} 

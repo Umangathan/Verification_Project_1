@@ -1,0 +1,23 @@
+TransitionSystem: 
+Modest.Teaching.TransitionSystem`1[CompiledAutomata.State1] 
+ 
+ 
+Properties: 
+Name: P_a 
+∀ (□ AP0) Location: tmpA75F.tmp:(4,16) 
+Name: P_b 
+∀ (⋄ (∀ (□ AP1))) Location: tmpA75F.tmp:(5,16) 
+Name: P_c 
+∃ (⋄ (AP0 ∧ AP2)) Location: tmpA75F.tmp:(6,16) 
+Name: P_d 
+∃ (⋄ (∀ (□ (AP0 ∨ AP3)))) Location: tmpA75F.tmp:(7,16) 
+Name: P_e1 
+∀ ((¬ AP0) U (∃ (⋄ AP4))) Location: tmpA75F.tmp:(8,17) 
+Name: P_e2 
+∀ ((¬ AP0) U (AP5 ∧ (∃ (⋄ AP4)))) Location: tmpA75F.tmp:(9,17) 
+Name: P_f 
+∃ ((¬ AP0) U ((AP0 ∧ (∃ (⋄ AP4))) ∨ (∀ (⋄ AP6)))) Location: tmpA75F.tmp:(10,16) 
+Name: P_g 
+∀ (AP7 U ((∃ (□ AP0)) ∨ (∃ (⚪ ((¬ AP0) ∧ AP8))))) Location: tmpA75F.tmp:(11,16) 
+Name: P_h 
+∃ (⋄ ((AP9 ∧ (¬ AP0)) ∧ (∃ (⋄ AP4)))) Location: tmpA75F.tmp:(12,16) 

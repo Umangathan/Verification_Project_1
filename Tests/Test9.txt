@@ -1,0 +1,17 @@
+int i; 
+ 
+property "T e s t2" = A(true); 
+property Testa = A<>(i == 5); 
+property Testb = E<>(i == 5); 
+property Testc = A(N(i == 5)); 
+property Testd = E((i == 5) && A(N(i == 6))); 
+property Teste = E<>(i == 5); 
+property Testf = (i == 5); 
+property Testg = A[](i == 5); 
+property Testh = E(N(true U (i == 5))); 
+property Testi = (i == 5) && A(N((i == 5) && A(N(i == 5)))); 
+property Testj = A(!(A[]A<>(i == 5)) || (A[]A<>(i == 4))); 
+property Testk = A((i == 0) W (i == 5)); 
+property Testl = (i == 5) W ((i == 6) U (i == 7)); 
+ 
+do { :: tau {= i = 5 =}; tau } 

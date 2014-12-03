@@ -27,7 +27,7 @@ namespace TransitionSystemChecker.StateFormulas
             return new SAtomic(atomic);
         }
 
-        public override void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        public override void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
             HashSet<T> res = new HashSet<T>();
 
@@ -40,6 +40,8 @@ namespace TransitionSystemChecker.StateFormulas
                     res.Add(state);
 
             }
+
+            //Console.WriteLine("atomic");
 
             sat = res;
         }

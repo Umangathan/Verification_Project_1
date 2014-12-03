@@ -1,0 +1,31 @@
+TransitionSystem: 
+Modest.Teaching.TransitionSystem`1[CompiledAutomata.State1] 
+ 
+ 
+Properties: 
+Name: T e s t2 
+∀ true Location: tmpA433.tmp:(3,23) 
+Name: Testa 
+∀ (⋄ AP0) Location: tmpA433.tmp:(4,18) 
+Name: Testb 
+∃ (⋄ AP0) Location: tmpA433.tmp:(5,18) 
+Name: Testc 
+∀ (⚪ AP0) Location: tmpA433.tmp:(6,18) 
+Name: Testd 
+∃ (AP0 ∧ (∀ (⚪ AP1))) Location: tmpA433.tmp:(7,18) 
+Name: Teste 
+∃ (⋄ AP0) Location: tmpA433.tmp:(8,18) 
+Name: Testf 
+AP0 Location: tmpA433.tmp:(9,19) 
+Name: Testg 
+∀ (□ AP0) Location: tmpA433.tmp:(10,18) 
+Name: Testh 
+∃ (⚪ (true U AP0)) Location: tmpA433.tmp:(11,18) 
+Name: Testi 
+AP0 ∧ (∀ (⚪ (AP0 ∧ (∀ (⚪ AP0))))) Location: tmpA433.tmp:(12,19) 
+Name: Testj 
+∀ ((¬ (∀ (□ (∀ (⋄ AP0))))) ∨ (∀ (□ (∀ (⋄ AP2))))) Location: tmpA433.tmp:(13,18) 
+Name: Testk 
+∀ (AP3 W AP0) Location: tmpA433.tmp:(14,18) 
+Name: Testl 
+AP0 W (AP1 U AP4) Location: tmpA433.tmp:(15,19) 

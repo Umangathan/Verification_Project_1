@@ -1,0 +1,15 @@
+TransitionSystem: 
+Modest.Teaching.TransitionSystem`1[CompiledAutomata.State1] 
+ 
+ 
+Properties: 
+Name: P01 
+∃ (⋄ (AP0 ∧ (∃ (⚪ AP0)))) Location: tmpAAE9.tmp:(3,16) 
+Name: P02 
+∃ (⋄ (AP0 ∧ (∃ (⚪ true)))) Location: tmpAAE9.tmp:(4,16) 
+Name: P03 
+∃ (⋄ (AP0 ∧ (∀ (□ AP0)))) Location: tmpAAE9.tmp:(5,16) 
+Name: P04 
+∃ (⋄ (AP0 ∧ (∃ (□ AP0)))) Location: tmpAAE9.tmp:(6,16) 
+Name: P05 
+∃ (⋄ (AP0 ∧ (∃ (⋄ AP1)))) Location: tmpAAE9.tmp:(7,16) 

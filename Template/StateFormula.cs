@@ -13,15 +13,18 @@ namespace TransitionSystemChecker
         
 
         abstract public StateFormula existentialNormalForm();
-        abstract public void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        abstract public void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
             where T : struct, Modest.Exploration.IState<T>;
        
  
+        /*
         public static HashSet<T> getPreSet<T>(TransitionSystem<T> transition_system, ref LinkedList<T> states, ref T state) 
             where T : struct, Modest.Exploration.IState<T>
         {
             HashSet<T> res = new HashSet<T>();
             T successor;
+
+            
 
             foreach (var entry in states)
             {
@@ -53,6 +56,7 @@ namespace TransitionSystemChecker
 
             return res;
         }
+        */
 
        
     }

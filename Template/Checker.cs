@@ -11,9 +11,13 @@ namespace TransitionSystemChecker
     class Checker : ITransitionSystemAnalyzer
     {
 
+        
+        
+
         public Checker() // called from Program.cs
         {
             // Perform initialisation work that does not depend on command-line arguments and that cannot fail here if necessary.
+            
         }
 
         public bool ParseCommandLine(string[] args) // called from Program.cs
@@ -71,7 +75,6 @@ namespace TransitionSystemChecker
             Console.WriteLine("States: " + states.Count.ToString(CI.InvariantCulture) + "\n");
 
 
-
             if (terminalStatesEncountered)
             {
                 Console.WriteLine("Error: deadlocks detected\n");
@@ -116,7 +119,14 @@ namespace TransitionSystemChecker
                  //Console.WriteLine("Name: " + key_formula.Key + " \n Formula: " + enf_formula.ToString());
             }
 
-            Console.WriteLine("gogogogo");
+            
+
+            // Initialize factory if we actually do any model checking
+
+            Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(states.Count);
+
+            if(state_ENF.Count > 0) 
+                 factory = new Pre_Compute_Factory<T>(states.Count, states, transitionSystem);
 
             // Now do the model checking
             foreach (var entry in state_ENF)
@@ -131,7 +141,7 @@ namespace TransitionSystemChecker
 
 
 
-                ModelChecker<T>(transitionSystem, linked_states, state_formula, out isSatisfied);
+                ModelChecker<T>(transitionSystem, linked_states, state_formula, out isSatisfied, ref factory);
 
                 if (isSatisfied)
                 {
@@ -216,6 +226,9 @@ namespace TransitionSystemChecker
             {
 
                 result = new SAtomic((AtomicProposition)property);
+
+                
+
             }
             else if (property.GetType() == typeof(And))
             {
@@ -373,11 +386,11 @@ namespace TransitionSystemChecker
             
         }
 
-        public void ModelChecker<T>(TransitionSystem<T> transition_system, LinkedList<T> states, StateFormula state_formula, out bool isSatiesfied)
+        public void ModelChecker<T>(TransitionSystem<T> transition_system, LinkedList<T> states, StateFormula state_formula, out bool isSatiesfied, ref Pre_Compute_Factory<T> factory)
             where T : struct, Modest.Exploration.IState<T>
         {
             HashSet<T> sat;
-            state_formula.isSatiesfied<T>(transition_system, states, out sat);
+            state_formula.isSatiesfied<T>(transition_system, states, out sat, ref factory);
 
             T initialState;
             transition_system.GetInitialState(out initialState);

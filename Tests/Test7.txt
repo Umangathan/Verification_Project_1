@@ -1,0 +1,15 @@
+action a, b, c; 
+int i; 
+ 
+const int BOUND = 4000000; 
+ 
+do { 
+::	when(i < BOUND) alt { 
+		::	when(i % 2 == 0) a {= i++ =} 
+		::	when(i % 2 == 0) b {= i += 2 =} 
+		::	when(i % 2 == 0) tau {= i++ =} 
+		::	when(i % 2 == 1) c {= i++ =} 
+		::	when(i % 5000 == 0) c {= i = 0 =} 
+		::	when(i > 0 && i % 50004 == 0) c {= i -= 25001 =} 
+	} 
+} 

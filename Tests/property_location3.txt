@@ -1,0 +1,5 @@
+TransitionSystem: 
+Modest.Teaching.TransitionSystem`1[CompiledAutomata.State1] 
+ 
+ 
+Properties: 

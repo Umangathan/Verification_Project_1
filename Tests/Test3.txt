@@ -1,0 +1,13 @@
+action a, b, c; 
+int i; 
+ 
+const int BOUND = 100; 
+ 
+do { 
+::	when(i < BOUND) alt { 
+		::	when(i % 2 == 0) a {= i++ =} 
+		::	when(i % 2 == 0) b {= i += 2 =} 
+		::	when(i % 2 == 0) tau {= i++ =} 
+		::	when(i % 2 == 1) c {= i++ =} 
+	} 
+} 

@@ -27,10 +27,10 @@ namespace TransitionSystemChecker.StateFormulas
             return new SNot(e_state);
         }
 
-        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
             HashSet<T> positive_sat;
-            state.isSatiesfied<T>(transition_system, states, out positive_sat);
+            state.isSatiesfied<T>(transition_system, states, out positive_sat, ref factory);
 
             HashSet<T> res = new HashSet<T>();
 

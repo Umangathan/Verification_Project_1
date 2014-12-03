@@ -32,12 +32,12 @@ namespace TransitionSystemChecker.StateFormulas
            return new SAnd(e_left, e_right);
         }
 
-        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
             HashSet<T> sat_1;
-            left.isSatiesfied<T>(transition_system, states, out sat_1);
+            left.isSatiesfied<T>(transition_system, states, out sat_1, ref factory);
             HashSet<T> sat_2; 
-            right.isSatiesfied<T>(transition_system, states, out sat_2);
+            right.isSatiesfied<T>(transition_system, states, out sat_2, ref factory);
 
             sat_1.IntersectWith(sat_2);
 

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace TransitionSystemChecker.StateFormulas
 {
     class SEAlways : StateFormula
     {
         public StateFormula operand;
-
+        
         public SEAlways(StateFormula operand)
         {
             this.operand = operand;
@@ -28,10 +29,11 @@ namespace TransitionSystemChecker.StateFormulas
             return new SEAlways(e_operand);
         }
 
-        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
+            //Console.WriteLine("Always start");
             HashSet<T> v;                                                                        //Sat(operand)    
-            operand.isSatiesfied<T>(transition_system, states, out v);                  
+            operand.isSatiesfied<T>(transition_system, states, out v, ref factory);                  
             HashSet<T> e = new HashSet<T>();                                                    //S\V
 
             foreach (var entry in states)
@@ -52,8 +54,8 @@ namespace TransitionSystemChecker.StateFormulas
             foreach (var entry in v)
             {
                 var temp = entry;
-                HashSet<T> post = StateFormula.getPostSet<T>(transition_system, ref states, ref temp);
-
+                HashSet<T> post = factory.getPostSet(ref temp);
+                
                 state_c.Add(temp, post.Count);
 
             }
@@ -63,7 +65,7 @@ namespace TransitionSystemChecker.StateFormulas
             while (e_queue_size > 0)
             {
                 var s_prime = e_queue.Dequeue();
-                HashSet<T> pre_s_prime = StateFormula.getPreSet<T>(transition_system, ref states, ref s_prime);
+                HashSet<T> pre_s_prime = factory.getPreSet(ref s_prime);
 
                 foreach (var s in pre_s_prime)
                 {
@@ -91,6 +93,7 @@ namespace TransitionSystemChecker.StateFormulas
 
             sat = v;
 
+            //Console.WriteLine("Always stop");
 
         }
 

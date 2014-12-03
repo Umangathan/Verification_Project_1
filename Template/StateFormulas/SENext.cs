@@ -28,10 +28,11 @@ namespace TransitionSystemChecker.StateFormulas
             return new SENext(e_operand);
         }
 
-        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat)
+        public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
+            
             HashSet<T> operand_sat;
-            operand.isSatiesfied<T>(transition_system, states, out operand_sat);
+            operand.isSatiesfied<T>(transition_system, states, out operand_sat, ref factory);
             HashSet<T> res = new HashSet<T>();
 
             foreach (var entry in states)
@@ -53,7 +54,7 @@ namespace TransitionSystemChecker.StateFormulas
             }
 
             sat = res;
-
+            
         }
 
     }

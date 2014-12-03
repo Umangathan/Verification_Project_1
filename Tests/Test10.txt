@@ -1,0 +1,21 @@
+bool b; 
+int(0..4) i; 
+ 
+property P_a = A[](b); 
+property P_b = A<>A[](i == 1); 
+property P_c = E<>(b && i % 2 == 0); 
+property P_d = E<>A[](b || i >= 1); 
+property P_e1 = A(!b U E<>(i == 0)); 
+property P_e2 = A(!b U i > 1 && E<>(i == 0)); 
+property P_f = E(!b U (b && E<>(i == 0) || A<>(i == 4))); 
+property P_g = A((i <= 1) U (E[](b) || E(N(!b && i == 2)))); 
+property P_h = E<>(i > 2 && !b && E<>(i == 0)); 
+ 
+do { 
+:: when(i == 1) {= b = !b =} 
+:: when(i < 4) {= i++ =}; alt { 
+   :: when(b) {= i = 0 =} 
+   :: tau 
+} 
+:: when(i == 4) tau 
+} 
