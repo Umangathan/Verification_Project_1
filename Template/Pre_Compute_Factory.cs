@@ -54,60 +54,9 @@ namespace TransitionSystemChecker
                 pre_list[j] = new HashSet<T>();
                 post_list[j] = new HashSet<T>();
             }
-            //Console.WriteLine("go");
-            computePreList();
-            computePostList();
-            //Console.WriteLine("finish");
-        }
+           
 
-        private void computePreList()
-        {
-            for (int i = 0; i < number_states; i++)
-            {
-                T state = states[i];
-                
-               //HashSet<T> res = new HashSet<T>();
-                T successor;
-
-
-
-                foreach (var entry in states)
-                {
-                    var temp = entry;
-                    foreach (var transition in transition_system.GetTransitions(ref temp))
-                    {
-                        transition_system.GetTargetState(ref temp, transition, out successor);
-
-                        if (successor.Equals(state))
-                            pre_list[i].Add(temp);
-
-                    }
-                }
-
-                //pre_list[i] = res;
-
-            }
-
-        }
-
-        private void computePostList()
-        {
-            for (int i = 0; i < number_states; i++)
-            {
-                T state = states[i];
-
-                //HashSet<T> res = new HashSet<T>();
-                T successor;
-
-                foreach (var transition in transition_system.GetTransitions(ref state))
-                {
-                    transition_system.GetTargetState(ref state, transition, out successor);
-
-                    post_list[i].Add(successor);
-                }
-
-                //post_list[i] = res;
-            }
+            compute_pre_post_list();
         }
 
         public HashSet<T> getPreSet(ref T state)
@@ -124,6 +73,66 @@ namespace TransitionSystemChecker
             state_index_lookup.TryGetValue(state, out index);
 
             return post_list[index];
+        }
+
+
+
+        private void compute_pre_post_list() {
+            Queue<T> to_be_expanded = new Queue<T>();
+            HashSet<T> already_expanded = new HashSet<T>();
+
+            T initialState;
+            transition_system.GetInitialState(out initialState);
+
+            to_be_expanded.Enqueue(initialState);
+            already_expanded.Add(initialState);
+
+            int size = to_be_expanded.Count;
+
+            //var newestStates = new List<T>();
+
+            int count = 0;
+
+            while (size > 0)
+            {
+                
+                
+                var state = to_be_expanded.Dequeue();
+
+                int state_index;
+                state_index_lookup.TryGetValue(state, out state_index);
+
+                T successor;
+
+                foreach (var transition in transition_system.GetTransitions(ref state))
+                {
+                    transition_system.GetTargetState(ref state, transition, out successor);
+
+                    // Add successor to post_list of state
+                    post_list[state_index].Add(successor);
+
+                    // Add state to pre_list of successor
+                    int successor_index;
+                    state_index_lookup.TryGetValue(successor, out successor_index);
+                    pre_list[successor_index].Add(state);
+
+                    
+                    if (already_expanded.Add(successor))
+                    {
+                        to_be_expanded.Enqueue(successor);
+                        //newestStates.Add(successor);
+                    }
+
+                    
+                }
+
+                count++;
+
+                size = to_be_expanded.Count;
+
+                // If no transition has been encountered for this state it was terminal
+
+            }
         }
 
     }

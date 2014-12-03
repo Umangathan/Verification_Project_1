@@ -119,14 +119,9 @@ namespace TransitionSystemChecker
                  //Console.WriteLine("Name: " + key_formula.Key + " \n Formula: " + enf_formula.ToString());
             }
 
-            
 
-            // Initialize factory if we actually do any model checking
-
-            Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(states.Count);
-
-            if(state_ENF.Count > 0) 
-                 factory = new Pre_Compute_Factory<T>(states.Count, states, transitionSystem);
+            //Initialize factory
+            Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(states.Count, states, transitionSystem);
 
             // Now do the model checking
             foreach (var entry in state_ENF)
@@ -158,7 +153,7 @@ namespace TransitionSystemChecker
             }
 
 
-              //Environment.Exit(0);
+              Environment.Exit(0);
 
         }
 
