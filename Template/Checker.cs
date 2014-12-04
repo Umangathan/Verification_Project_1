@@ -52,41 +52,26 @@ namespace TransitionSystemChecker
 
             T initialState;
             transitionSystem.GetInitialState(out initialState);
-            //bool terminalStatesEncountered = false;
 
-
-
-            //Console.WriteLine("States: " + 4000001 + "\n");
-            //Console.WriteLine("Error: deadlocks detected\n");
-            //Environment.Exit(0);
-
-
-            //Console.WriteLine("State: " + initialState.ToString() + "Transition Count: " + transitionSystem.GetTransitions(ref initialState).Count().ToString());
-            // Count states and find terminal states
-            
             var newStates = new Queue<T>();
             newStates.Enqueue(initialState);
-            //states.Add(initialState);
 
-            //while(newStates.Count > 0)
-            //traverseTree<T>(transitionSystem, ref states, ref newStates, ref initialState, ref terminalStatesEncountered);
+            /* 
+             * Use this factory to pre_compute everything
+             * See class implementation for more information
+             */ 
+            
             Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(transitionSystem);
 
-            HashSet<T> states = factory.array.states;
-            //Console.WriteLine(factory.array.post_list.Count());   
-            /*
-            for (int i = 0; i < 7; i++) {
-                Console.WriteLine(i + " preCount: " + factory.array.pre_list[i].Count);
-                Console.WriteLine(i + " postCount: " + factory.array.post_list[i].Count);
-            }
-            */
+            HashSet<T> states = factory.getStates();
 
-            Console.WriteLine("States: " + factory.array.next_index + "\n");
+            Console.WriteLine("States: " + factory.number_states + "\n");
 
 
             if (factory.terminal_encountered)
             {
                 Console.WriteLine("Error: deadlocks detected\n");
+                return;
             }
 
             // Transform properties in State_Formulas;
@@ -110,13 +95,10 @@ namespace TransitionSystemChecker
                 else
                 {
                     state_formulas.Add(name, complete_formula);
-                    //Console.WriteLine("Name: " + name + " \n Formula: " + complete_formula.ToString());
-
                 }
             }
 
             //Transform into ENF
-
             var state_ENF = new Dictionary<String, StateFormula>();
             foreach (var key_formula in state_formulas)
             {
@@ -125,12 +107,9 @@ namespace TransitionSystemChecker
 
 
                  state_ENF.Add(key_formula.Key, enf_formula);
-                 //Console.WriteLine("Name: " + key_formula.Key + " \n Formula: " + enf_formula.ToString());
+                 
             }
 
-
-            //Initialize factory
-            //Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(states.Count, states, transitionSystem);
 
             // Now do the model checking
             foreach (var entry in state_ENF)
@@ -166,15 +145,18 @@ namespace TransitionSystemChecker
 
         }
 
+        // This function does not get called anymore
+        // But im still leaving it here in case it is needed later
+
+        /*
         public void traverseTree<T>(TransitionSystem<T> transitionSystem, ref HashSet<T> already_expanded, ref Queue<T> newStates, ref T state_a, ref bool terminalStatesEncountered)
             where T : struct, Modest.Exploration.IState<T>
         {
 
-            //HashSet<T> successors = new HashSet<T>();
 
             int newSize = newStates.Count;
 
-            //var newestStates = new List<T>();
+            
 
             while (newSize > 0)
             {
@@ -209,7 +191,12 @@ namespace TransitionSystemChecker
 
 
         }
+         */
 
+
+        /*
+         * Parses the property into our own tree structure
+         */
 
         public void parseStateFormula(Property property, out StateFormula result, ref bool is_ctl)
         {
@@ -390,6 +377,13 @@ namespace TransitionSystemChecker
             
         }
 
+        /*
+         * Uses the factory which we created at the very beginning to
+         * do the actual modelchecking
+         * For each state formula it gets the satisfaction set 
+         * by using the state forumla class' method
+         * Then it checks whether the initial state is in that set or not
+         */
         public void ModelChecker<T>(TransitionSystem<T> transition_system, LinkedList<T> states, StateFormula state_formula, out bool isSatiesfied, ref Pre_Compute_Factory<T> factory)
             where T : struct, Modest.Exploration.IState<T>
         {

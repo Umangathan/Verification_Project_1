@@ -7,6 +7,19 @@ using Modest.Teaching;
 
 namespace TransitionSystemChecker
 {
+    /*
+     * This class saves various things needed for the model checking
+     * This class is only used in the Pre_Compute_Factory class
+     * The things this class stores are:
+     *      state set which contains all states
+     *      predecessor_list set for each set
+     *      post_list set for each set
+     * Also it has a dictionary (index_lookup)
+     * which maps each state to a different integer
+     * so that we can actually find things in our arrays
+     */
+
+
     class DynamicArray<T>
         where T : struct, Modest.Exploration.IState<T>
     {
@@ -35,6 +48,12 @@ namespace TransitionSystemChecker
 
         }
 
+        /*
+         * This method tries to add a state to our states-array
+         * If there is not enough room simply make the array larger
+         * Always make sure the pre/post lists have enough space for each state
+         */
+         
         public bool addToStates(T state) {
             if(next_index == cap) {
                 
@@ -50,17 +69,25 @@ namespace TransitionSystemChecker
                     new_post_list[i] = new HashSet<T>();
                 }
 
+                
+
                 for(int i = 0; i < old_cap; i++) {
 
+                    new_pre_list[i] = pre_list[i];
+                    new_post_list[i] = post_list[i]; 
+
+                    /*
                     foreach (T entry in pre_list[i])
                         new_pre_list[i].Add(entry);
 
                     foreach (T entry in post_list[i])
                         new_post_list[i].Add(entry);
-
-                    //new_pre_list[i] = pre_list[i];
-                    //new_post_list[i] = post_list[i]; 
+                    */
+                    
                 }
+                 
+
+
 
                 
 
@@ -80,30 +107,29 @@ namespace TransitionSystemChecker
             return successful;
         }
 
+
+        // Adds state "add" to pre_list of state "state
         public void addToPre(T state, T add) {
             int index = getIndex(state);
-            //index_lookup.TryGetValue(state, out index);
-
+            
             pre_list[index].Add(add);
-            //Console.WriteLine("state : " + index + " now has " + pre_list[index].Count + " predecessors");
-
         }
 
+        // Adds state "add" to post_list of state "state"
         public void addToPost(T state, T add) {
             int index = getIndex(state);
-            //index_lookup.TryGetValue(state, out index);
-
+            
             post_list[index].Add(add);
         }
 
+
+        // Gets the index of state "state"
         public int getIndex(T state) {
             
             
 
             int index;
             index_lookup.TryGetValue(state, out index);
-
-            //Console.WriteLine("index: " + index);
 
             return index;
 
