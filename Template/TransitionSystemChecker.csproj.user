@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartWorkingDirectory>C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Modest\Samples\</StartWorkingDirectory>
-    <StartArguments>project_1_a.modest</StartArguments>
+    <StartWorkingDirectory>C:\Users\Umang\Downloads\Verification\Project_1\Modest_Toolset_%282014-11-18b%29\Modest\Samples\</StartWorkingDirectory>
+    <StartArguments>beb.modest</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <StartWorkingDirectory>

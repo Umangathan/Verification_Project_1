@@ -52,7 +52,7 @@ namespace TransitionSystemChecker
 
             T initialState;
             transitionSystem.GetInitialState(out initialState);
-            bool terminalStatesEncountered = false;
+            //bool terminalStatesEncountered = false;
 
 
 
@@ -63,19 +63,28 @@ namespace TransitionSystemChecker
 
             //Console.WriteLine("State: " + initialState.ToString() + "Transition Count: " + transitionSystem.GetTransitions(ref initialState).Count().ToString());
             // Count states and find terminal states
-            var states = new HashSet<T>();
+            
             var newStates = new Queue<T>();
             newStates.Enqueue(initialState);
-            states.Add(initialState);
+            //states.Add(initialState);
 
             //while(newStates.Count > 0)
-            traverseTree<T>(transitionSystem, ref states, ref newStates, ref initialState, ref terminalStatesEncountered);
+            //traverseTree<T>(transitionSystem, ref states, ref newStates, ref initialState, ref terminalStatesEncountered);
+            Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(transitionSystem);
+
+            HashSet<T> states = factory.array.states;
+            //Console.WriteLine(factory.array.post_list.Count());   
+            /*
+            for (int i = 0; i < 7; i++) {
+                Console.WriteLine(i + " preCount: " + factory.array.pre_list[i].Count);
+                Console.WriteLine(i + " postCount: " + factory.array.post_list[i].Count);
+            }
+            */
+
+            Console.WriteLine("States: " + factory.array.next_index + "\n");
 
 
-            Console.WriteLine("States: " + states.Count.ToString(CI.InvariantCulture) + "\n");
-
-
-            if (terminalStatesEncountered)
+            if (factory.terminal_encountered)
             {
                 Console.WriteLine("Error: deadlocks detected\n");
             }
@@ -121,7 +130,7 @@ namespace TransitionSystemChecker
 
 
             //Initialize factory
-            Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(states.Count, states, transitionSystem);
+            //Pre_Compute_Factory<T> factory = new Pre_Compute_Factory<T>(states.Count, states, transitionSystem);
 
             // Now do the model checking
             foreach (var entry in state_ENF)

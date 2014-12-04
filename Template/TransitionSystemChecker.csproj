@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Checker.cs" />
+    <Compile Include="DynamicArray.cs" />
     <Compile Include="Pre_Compute_Factory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="AssemblyInfo.cs" />
