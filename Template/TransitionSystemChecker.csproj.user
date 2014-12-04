@@ -5,7 +5,8 @@
     <StartArguments>project_1_a.modest</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartWorkingDirectory>C:\Users\Umangathan\Downloads\Programmierung\Verification\Project_1\Modest\Samples\</StartWorkingDirectory>
+    <StartWorkingDirectory>
+    </StartWorkingDirectory>
     <StartArguments>
     </StartArguments>
   </PropertyGroup>
