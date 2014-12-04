@@ -26,6 +26,8 @@ namespace TransitionSystemChecker
 
         public TransitionSystem<T> transition_system;
 
+        public Dictionary<StateFormula, HashSet<T>> prop_sats;
+
         public Pre_Compute_Factory(int number_states)
         {
             this.number_states = number_states;
@@ -37,6 +39,7 @@ namespace TransitionSystemChecker
             //this.states = new HashSet<T>();
             this.terminal_encountered = false;
             this.array = new DynamicArray<T>();
+            this.prop_sats = new Dictionary<StateFormula, HashSet<T>>();
 
             //int i = 0;
             //this.states = new T[number_states];

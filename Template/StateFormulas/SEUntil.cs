@@ -34,6 +34,13 @@ namespace TransitionSystemChecker.StateFormulas
 
         public override void isSatiesfied<T>(Modest.Teaching.TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
+            if (factory.prop_sats.ContainsKey(this))
+            {
+                factory.prop_sats.TryGetValue(this, out sat);
+                return;
+            }
+
+
             //Console.WriteLine("Until start");
             HashSet<T> t;                                                                    //Sat(right)
             right.isSatiesfied<T>(transition_system, states, out t, ref factory);
@@ -82,9 +89,21 @@ namespace TransitionSystemChecker.StateFormulas
                 
             }
 
+            factory.prop_sats.Add(this, t); 
+
             sat = t;
 
             //Console.WriteLine("Until stop");
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() == typeof(SEUntil))
+            {
+                return ((SEUntil)obj).left.Equals(left) && ((SEUntil)obj).right.Equals(right);
+            }
+
+            return false;
         }
 
     }

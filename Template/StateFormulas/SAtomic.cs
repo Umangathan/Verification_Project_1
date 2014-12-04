@@ -15,6 +15,7 @@ namespace TransitionSystemChecker.StateFormulas
         public SAtomic(AtomicProposition atomic)
         {
             this.atomic = atomic;
+            
         }
 
         public override string ToString()
@@ -27,8 +28,16 @@ namespace TransitionSystemChecker.StateFormulas
             return new SAtomic(atomic);
         }
 
+
         public override void isSatiesfied<T>(TransitionSystem<T> transition_system, LinkedList<T> states, out HashSet<T> sat, ref Pre_Compute_Factory<T> factory)
         {
+            if (factory.prop_sats.ContainsKey(this))
+            {
+                factory.prop_sats.TryGetValue(this, out sat);
+                return;
+            }
+
+
             HashSet<T> res = new HashSet<T>();
 
             foreach (var entry in states)
@@ -43,7 +52,20 @@ namespace TransitionSystemChecker.StateFormulas
 
             //Console.WriteLine("atomic");
 
+            factory.prop_sats.Add(this, res);
+
+            
             sat = res;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() == typeof(SAtomic))
+            {
+                return ((SAtomic)obj).atomic.PropositionIndex == atomic.PropositionIndex;
+            }
+
+            return false;
         }
     }
 }
